@@ -16,6 +16,7 @@ public class Search {
     private final static String SEARCH_STR = "Install";
     private final static int SEARCH_DELTA = SEARCH_STR.length();
     private final static int DEF_THREAD_NUM = 3;
+    private int entries = 0;
 
     public Search() {
         /*this.DIR = DIR;
@@ -27,7 +28,6 @@ public class Search {
         HashMap<File, HashMap<Integer, Integer>> hm = new HashMap<>();
         HashMap<Integer, Integer> hmPos = new HashMap<>(1);
         hmPos.put(0, 0);
-        //ArrayList<File> al = getTXTFiles(DIR);
         for (File f : getTXTFiles(DIR)) {
             hm.put(f, hmPos);
         }
@@ -43,7 +43,7 @@ public class Search {
                     getTXTFiles(f.getAbsolutePath());
                 } else {
                     if (f.getName().endsWith(EXT)) {
-                        System.out.println("Add " + f.getAbsolutePath());
+                        //System.out.println("Add " + f.getAbsolutePath());
                         files.add(f);
                     }
                 }
@@ -58,10 +58,8 @@ public class Search {
     }
 
     private void findString(HashMap<File, HashMap<Integer, Integer>> map) { //File f, int start, int end
-        //Set<Map.Entry<File, Integer[][]>> set = map.entrySet();
         for(Map.Entry<File, HashMap<Integer, Integer>> me: map.entrySet()) {
             File file = me.getKey();
-            //Set<Map.Entry<Integer, Integer>> entries = me.getValue().entrySet();
             Map.Entry<Integer, Integer> positions = me.getValue().entrySet().iterator().next();
             int start = positions.getValue();
             int end = positions.getKey();
@@ -72,10 +70,22 @@ public class Search {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            for(String s: stringList) {
+            for (String s : stringList) {
                 text += (s + "\n");
             }
-            System.out.println("\n-------------\n" + text);
+            System.out.println(file.getAbsolutePath());
+            System.out.println("Entries: " + countEntries(text));
+            entries = 0; // is there a better place for counter reset?
+            System.out.println("--------------");
         }
+    }
+
+    private int countEntries(String s) {
+        int index = s.indexOf(SEARCH_STR);
+        if (index != -1) {
+            System.out.println("Index " + (++entries) + ": " + index);
+            countEntries(s.substring(index + SEARCH_STR.length()));
+        }
+        return entries;
     }
 }
