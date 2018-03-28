@@ -56,7 +56,7 @@ public class Search {
     }
 
     private void findString(HashMap<File, HashMap<Integer, Integer>> map) { //File f, int start, int end
-        for(Map.Entry<File, HashMap<Integer, Integer>> me: map.entrySet()) {
+        for(Map.Entry<File, HashMap<Integer, Integer>> me: map.entrySet()) { //Set - isn't dangerous?
             File file = me.getKey();
             Map.Entry<Integer, Integer> positions = me.getValue().entrySet().iterator().next();
             int start = positions.getValue();
