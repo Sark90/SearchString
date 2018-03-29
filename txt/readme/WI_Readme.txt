@@ -22,7 +22,7 @@ The MicrosoftR WindowsR Installer (MSI) is the application installation and conf
 
 Multiple Package Transaction: In a multiple package transaction, you can create a single transaction from multiple packages. In a multiple package transaction, a chainer is used to dynamically include packages in the transaction. If any of the packages do not install as expected, you can roll back the installation.
 
-Embedded UI Handler: You can embed a custom user interface (UI) handler in the Windows Installer package. This makes a custom UI easier to integrate. You can also invoke an embedded UI handler from the Add or Remove item in Control Panel. Or, you can invoke an embedded UI handler during a Windows Installer repair process.
+Embedded UI Handler: You can embed a custom user interface (UI) handler in the Windows Installer package. This makes a custom UI easier to integrate. You can also invoke an embedded UI handler from the Add or Remove item in threading.Control Panel. Or, you can invoke an embedded UI handler during a Windows Installer repair process.
 
 Embedded Chainer: You can use the embedded chainer to add packages to a multiple package transaction. You can use an embedded chainer to enable installation events across multiple packages. For example, you can enable the install-on-demand events, the repair events, and the uninstall events across multiple packages.
 
