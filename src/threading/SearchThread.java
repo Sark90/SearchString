@@ -4,20 +4,19 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.List;
 
-public class SearchThread /*implements Runnable*/ extends Thread {
-    //private Thread t;   //private?
-    private final static String SEARCH_STR = "Install";
+public class SearchThread extends Thread {
     private File[] files;
     private int entries = 0;
     private StringBuffer sb;
+    private String expression = "Install";
 
     private SearchThread() {}
-    public SearchThread(File...files) {
-        super();
+    public SearchThread(String name, String expression, File...files) {
+        super(name);
         this.files = files;
+        this.expression = expression;
         sb = new StringBuffer();
         start();
     }
@@ -35,7 +34,8 @@ public class SearchThread /*implements Runnable*/ extends Thread {
             for (String s : stringList) {
                 text += (s + "\n");
             }
-            //TODO: Result to another class field?
+            // Result to another class field?
+            sb.append("<thread ").append(getName()).append(">\n");
             sb.append(file.getAbsolutePath() + "\n");
             countEntries(text);
             sb.append("Entries: " + entries + "\n");
@@ -45,12 +45,12 @@ public class SearchThread /*implements Runnable*/ extends Thread {
         System.out.println(sb);
     }
 
-    private int countEntries(String s) {
-        int index = s.indexOf(SEARCH_STR);
+    private void countEntries(String s) {
+
+        int index = s.indexOf(expression);
         if (index != -1) {
             sb.append("Index " + (++entries) + ": " + index + "\n");
-            countEntries(s.substring(index + SEARCH_STR.length()));
+            countEntries(s.substring(index + expression.length()));
         }
-        return entries;
     }
 }
