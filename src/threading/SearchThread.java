@@ -34,22 +34,20 @@ public class SearchThread extends Thread {
             for (String s : stringList) {
                 text += (s + "\n");
             }
-            // Result to another class field?
             sb.append("<thread ").append(getName()).append(">\n");
-            sb.append(file.getAbsolutePath() + "\n");
+            sb.append(file.getAbsolutePath()).append("\n");
             countEntries(text);
-            sb.append("Entries: " + entries + "\n");
+            sb.append("Entries: ").append(entries).append("\n");
             entries = 0; // is there a better place for counter reset?
             sb.append("--------------\n");
         }
-        System.out.println(sb);
+        System.out.print(sb);
     }
 
     private void countEntries(String s) {
-
         int index = s.indexOf(expression);
         if (index != -1) {
-            sb.append("Index " + (++entries) + ": " + index + "\n");
+            sb.append("Index ").append(++entries).append(": ").append(index).append("\n");
             countEntries(s.substring(index + expression.length()));
         }
     }
